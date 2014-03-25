@@ -2,6 +2,9 @@
  * @author jcfuseli
  */
 
+
+//favList = [true, false];
+
 $(function(){
 				$('#sortlist').jqmts({
 					useNativeMenu: false,
@@ -10,17 +13,20 @@ $(function(){
 				});
 });	
 
-			
 
+var favList = [true, true];
 
 
 //assuming this comes from an ajax call
+
 var info = [{
     
         "img": '"img/nimbeaux.jpg"',
         "Name": "Nimbeaux's",
         "WaitTime": 5,
         "link":'nimbeaux.html',
+        
+        "favorite": window.favList[0],
         
      
 }, {
@@ -29,14 +35,18 @@ var info = [{
         "Name": "Eddie's BBQ",
         "WaitTime": 20,
         "link":'nimbeaux.html',
+        "favorite": window.favList[1],
         
 
 }];
+
+
 
 //pageinit event for first page
 //triggers only once
 //write all your on-load functions and event handlers pertaining to page1
 $(document).on("pageinit", "#page1", function () {
+
 
 
     //set up string for adding <li/>
@@ -49,7 +59,9 @@ $(document).on("pageinit", "#page1", function () {
         //store index value in array as id of the <a> tag
        //li += '<li><a href="#" id="' + i + '" class="info-go">' + name.Name + '</a></li>';
        //li += '<li><a href="#" id="' + i + '" class= "info-go"><img src='+ name.img +'><h2 class ="rName">'+ name.Name +'</h2><h5 class="wait-time">'+ name.WaitTime+'</h5></a></li>';
-       li += '<li data-sort-firstname= ' + name.Name + ' data-sort-lastname='+ name.WaitTime + '><a href="' + name.link + '"id = ' + i + '" class = "info-go"><img src='+ name.img +'><h2 class ="rName">'+ name.Name +'</h2><h5 class="wait-time">'+ name.WaitTime+'</h5></a></li>';
+       if(name.favorite === true) {
+       		li += '<li data-sort-firstname= ' + name.Name + ' data-sort-lastname='+ name.WaitTime + '><a href="' + name.link + '"id = ' + i + '" class = "info-go"><img src='+ name.img +'><h2 class ="rName">'+ name.Name +'</h2><h5 class="wait-time">'+ name.WaitTime+'</h5></a></li>';
+ 		}
     });
     //append list to ul
     $(".listAdd").append(li).promise().done(function () {
